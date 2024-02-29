@@ -16,13 +16,15 @@
                 .then(data => {
                     const artworksDiv = document.getElementById('artworks');
                     data.data.forEach(artwork => {
-                        // Extracting the first image URL if available
+                        // Extracting the image URL
                         const imageUrl = getImageUrl(artwork);
                         if (imageUrl) {
-                            const imageElement = document.createElement('img');
-                            imageElement.src = imageUrl;
-                            imageElement.alt = artwork.title;
-                            artworksDiv.appendChild(imageElement);
+                            // Creating an anchor element to display the URL
+                            const anchor = document.createElement('a');
+                            anchor.href = imageUrl;
+                            anchor.textContent = imageUrl;
+                            artworksDiv.appendChild(anchor);
+                            artworksDiv.appendChild(document.createElement('br')); // Add a line break for better separation
                         }
                     });
                 })
@@ -37,7 +39,7 @@
                 for (const image of artwork.images) {
                     // Check if the image object has a 'url' property
                     if (image.hasOwnProperty('url')) {
-                        // Return the first image URL found
+                        // Return the image URL
                         return image.url;
                     }
                 }
